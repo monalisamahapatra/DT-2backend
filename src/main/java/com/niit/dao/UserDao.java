@@ -8,16 +8,16 @@ public interface UserDao {
 
 public void registerUser(User user);
 	
-	boolean isEmailUnique (String email);
-	
-	User login(User user);
-	
-	public void update(User validUser);
+boolean isEmailUnique(String email);
 
-	User getUser(String email);
-	
-	void updateUser(User user);
-	
-	List<User> searchUser(String name);
+User login(User user);
+
+public void update(User validUser);
+
+User getUser(String email);
+
+void updateUser(User user);
+
+List<User> searchUser(String name);
 }
 

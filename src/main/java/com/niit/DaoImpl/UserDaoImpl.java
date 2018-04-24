@@ -27,62 +27,83 @@ public class UserDaoImpl implements UserDao{
 	}
 	
 	@Transactional
-
 	public void registerUser(User user) {
 		// TODO Auto-generated method stub
-		DBConfiguration dbConfig=new DBConfiguration();
-		sessionFactory=dbConfig.getsessionFactory();
+		DBConfiguration hbConfig = new DBConfiguration();
+		sessionFactory=hbConfig.getsessionFactory();
 		Session session=sessionFactory.openSession();
 		session.beginTransaction();
+	    session.save(user);
 		session.getTransaction().commit();
+		session.close();
 		
 	}
+	@Transactional
 	public boolean isEmailUnique(String email) {
-		// TODO Auto-generated method stub
-		Session session=sessionFactory.getCurrentSession();
+	
+		DBConfiguration hbConfig = new DBConfiguration();
+		sessionFactory=hbConfig.getsessionFactory();
+		Session session=sessionFactory.openSession();
 		User user=(User) session.get(User.class,email);
 		if(user==null)
 			return true;
 		else
 			return false;
+			
 
 	}
+	@Transactional
+
 	public User login(User user) {
+		
 		// TODO Auto-generated method stub
 	
 			// TODO Auto-generated method stub
-			Session session=sessionFactory.getCurrentSession();
+		    DBConfiguration hbConfig = new DBConfiguration();
+		    sessionFactory=hbConfig.getsessionFactory();
+			Session session=sessionFactory.openSession();
 			Query query=session.createQuery("from User where email=? and password=?");
 			query.setString(0,user.getEmail());
 			query.setString(1,user.getPassword());
 			return(User) query.uniqueResult();
-				
+			
 		}
 
 
 	
 	public void update(User validUser) {
 		// TODO Auto-generated method stub
+		 DBConfiguration hbConfig = new DBConfiguration();
+		 sessionFactory=hbConfig.getsessionFactory();
 		Session session=sessionFactory.getCurrentSession();
 		session.update(validUser);
 
 	}
-	public User getUser(String email) {
+	public User getUser(String email)
+	{
 		// TODO Auto-generated method stub
+		 DBConfiguration hbConfig = new DBConfiguration();
+		 sessionFactory=hbConfig.getsessionFactory();
 		Session session=sessionFactory.getCurrentSession();
 		User user=(User) session.get(User.class, email);
 		return user;
 
+	
 	}
 	public void updateUser(User user) {
 		// TODO Auto-generated method stub
+		 DBConfiguration hbConfig = new DBConfiguration();
+		 sessionFactory=hbConfig.getsessionFactory();
 		Session session=sessionFactory.getCurrentSession();
 		session.update(user);
 		
 	}
 	public List<User> searchUser(String name) {
+		
 		// TODO Auto-generated method stub
-		System.out.println(name);
+		DBConfiguration hbConfig = new DBConfiguration();
+		sessionFactory=hbConfig.getsessionFactory();
+	    System.out.println(name);
 		Session session=sessionFactory.getCurrentSession();
 		Query query=session.createQuery("from user u where u.firstname like?");
 		query.setString(0, "%" +name+ "%");
@@ -94,4 +115,9 @@ public class UserDaoImpl implements UserDao{
 	}
 
 	}
+
+
+
+
+
 

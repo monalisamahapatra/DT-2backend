@@ -16,19 +16,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.niit.DaoImpl.UserDaoImpl;
 import com.niit.dao.UserDao;
-import com.niit.model.BlogComment;
-import com.niit.model.BlogPost;
-import com.niit.model.BlogPostLikes;
-import com.niit.model.Friend;
-import com.niit.model.Job;
-import com.niit.model.Notification;
-import com.niit.model.ProfilePicture;
 import com.niit.model.User;
 
 @Configuration
 @EnableTransactionManagement
 @ComponentScan("com.niit")
-
 public class DBConfiguration {
 
 	public static SessionFactory sessionFactory=null;
@@ -54,7 +46,8 @@ public class DBConfiguration {
 		
 		LocalSessionFactoryBuilder lsfb = new LocalSessionFactoryBuilder(getDataSource());
 		lsfb.addProperties(hibernateProperties);
-		Class classes[] = new Class[]{User.class,Job.class,BlogPost.class,Notification.class,BlogPostLikes.class,BlogComment.class,ProfilePicture.class,Friend.class};
+		lsfb.addAnnotatedClass(User.class);	
+		//Class classes[] = new Class[]{User.class};
 		sessionFactory=lsfb.buildSessionFactory();
 		System.out.println("SessionFactory object created");
 		 
